@@ -28,7 +28,8 @@ public class Welcome extends JFrame {
 
     //create the model for users list
 
-    private DefaultListModel<String> getListModel(String[] arrayOfStrings, DefaultListModel<String> model) {
+    private DefaultListModel<String> setListModel(String[] arrayOfStrings)  {
+        DefaultListModel<String> model = new DefaultListModel<String>();
         for (String txt : arrayOfStrings) {
             model.addElement(txt);
         }
@@ -45,14 +46,17 @@ public class Welcome extends JFrame {
             public void windowOpened(WindowEvent e) {
                 welcomeLabel.setText("Welcome "+Connect.getLogin());
                 System.out.println("Window Activated Event");
-                messagesList.setModel(getListModel(messages, messageModel));
-                userList.setModel(getListModel(users, usersModel));
+                messageModel = setListModel(messages);
+                messagesList.setModel(messageModel);
+                userList.setModel(setListModel(users));
             }
         });
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messagesList.setModel(sendMessage(messageField.getText(),messageModel));
+                //messagesList.setModel(sendMessage(messageField.getText(),messageModel));
+                DefaultListModel messagesModelUpdated= (DefaultListModel) messagesList.getModel();
+                messagesList.setModel(sendMessage(messageField.getText(),messagesModelUpdated));
             }
         });
     }
