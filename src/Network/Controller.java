@@ -1,7 +1,12 @@
+package Network;
+
+import Interface.Connect;
+
 import java.io.IOException;
 import java.net.*;
 import java.util.*;
 import java.lang.*;
+import Interface.Welcome;
 
 public class Controller{
 
@@ -16,9 +21,12 @@ public class Controller{
         InetAddress addr = findUserAddr();
         this.user=new User(null, addr);
 
-
+        new Connect(this);
 
         this.manager=new ManagerNetwork(this,this.user);
+
+
+
         //Thread tc =new TerminalCommand(this,this.sc);
         //try{tc.join();}catch(InterruptedException e){}
         //this.sc.close();
@@ -64,6 +72,7 @@ public class Controller{
         this.user.setLogin(login);
     }
 
+
     public void send(String userName,String msg){
         System.out.println("test : "+userName);
         this.manager.sendMessage(userName, msg);
@@ -73,9 +82,23 @@ public class Controller{
         System.out.println("Message received from "+user.getLogin()+" : "+message);
     }
 
-    public List<User> getUserList(){
-        return this.manager.getUserList();
+    public List<String> getUserList(){
+        List<String> userNameList=new ArrayList<>();
+        List<User> userList=this.manager.getUserList();
+        for (User u:userList){
+            userNameList.add(u.getLogin());
+        }
+        return userNameList;
     }
 
+    public void launchWelcome(){
+        new Welcome(this);
+    }
+
+
+
+   public String getLogin() {
+        return this.user.getLogin();
+   }
 
 }

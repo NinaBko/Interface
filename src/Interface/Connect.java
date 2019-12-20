@@ -1,6 +1,11 @@
+package Interface;
+
+import Network.Controller;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class Connect extends JFrame{
     private JPanel contentPane;
@@ -9,24 +14,24 @@ public class Connect extends JFrame{
     private JPanel loginFieldPane;
     private JTextField loginField;
     private JLabel instructionLogin;
-    private static String login = "";
 
-    public Connect() {
+    public Connect(Controller controller) {
+        init();
         connectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                login = loginField.getText();
-                new Welcome();
-                Welcome.mainCaller();
+                String login = loginField.getText();
+                controller.setUserLogin(login);
+                controller.launchWelcome();
             }
         });
     }
 
-    public static String getLogin(){return login;}
+    //public static String getLogin(){return login;}
 
-    public static void main(String[] args) {
+    public void init() {
         JFrame frame = new JFrame("Connect");
-        frame.setContentPane(new Connect().contentPane);
+        frame.setContentPane(contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

@@ -1,3 +1,5 @@
+package Network;
+
 import java.io.IOException;
 import java.net.*;
 import java.lang.*;
@@ -15,7 +17,7 @@ public class UDPListener extends Thread{
         while(true){
             DatagramSocket dgramSocket = null;
             try{
-                dgramSocket = new DatagramSocket(3500);
+                dgramSocket = new DatagramSocket(3700);
             }
             catch(SocketException e){
                 System.out.println("Error create DatagramSocket");

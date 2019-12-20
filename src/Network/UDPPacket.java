@@ -1,3 +1,5 @@
+package Network;
+
 import java.net.*;
 
 public class UDPPacket{

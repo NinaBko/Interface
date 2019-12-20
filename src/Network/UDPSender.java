@@ -1,3 +1,5 @@
+package Network;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -29,7 +31,7 @@ public class UDPSender{
             System.out.println("Error create diagram socket sender");
         }
         try{
-            outPacket = new DatagramPacket(msg.getBytes(), msg.length(),InetAddress.getByName("10.1.255.255"),3500);
+            outPacket = new DatagramPacket(msg.getBytes(), msg.length(),InetAddress.getByName("10.1.255.255"),3700);
         }catch(UnknownHostException e){
             System.out.println("Error create dgram packet");
         }
@@ -57,7 +59,7 @@ public class UDPSender{
             System.out.println("Error create diagram socket sender");
         }*/
         System.out.println("-- "+msg);
-        outPacket = new DatagramPacket(msg.getBytes(), msg.length(),address,3500);
+        outPacket = new DatagramPacket(msg.getBytes(), msg.length(),address,3700);
         try{
             this.datagramSocket.send(outPacket);
         }

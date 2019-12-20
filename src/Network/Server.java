@@ -1,3 +1,5 @@
+package Network;
+
 import java.net.*;
 import java.io.*;
 import java.lang.*;
@@ -16,14 +18,14 @@ public class Server extends Thread{
     public void run() {
         ServerSocket servSocket=null;
         try{
-            servSocket= new ServerSocket(3600);
+            servSocket= new ServerSocket(3800);
             Boolean stop=false;
             while(!stop){
             new TCPListenerThread(servSocket.accept(),this.manager);
             }  
             
         }
-        catch (Exception IOException){
+        catch (IOException e){
             System.out.println("IO2");
         }
          
@@ -31,7 +33,7 @@ public class Server extends Thread{
         try{
             servSocket.close();
             
-        }catch (Exception IOException){System.out.println("IO3");}
+        }catch (IOException e){System.out.println("IO3");}
         
     }
 
