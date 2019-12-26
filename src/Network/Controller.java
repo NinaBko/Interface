@@ -72,8 +72,7 @@ public class Controller{
         this.user.setLogin(login);
     }
 
-
-    public void send(String userName,String msg){
+    public void send(String userName, String msg){
         System.out.println("test : "+userName);
         this.manager.sendMessage(userName, msg);
     }
@@ -95,9 +94,7 @@ public class Controller{
         new Welcome(this);
     }
 
-
-
-   public String getLogin() {
+    public String getLogin() {
         return this.user.getLogin();
    }
 

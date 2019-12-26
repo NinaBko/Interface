@@ -1,11 +1,16 @@
 package Interface;
 
+import Network.Chat;
 import Network.Controller;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Welcome extends JFrame {
@@ -14,70 +19,123 @@ public class Welcome extends JFrame {
     private JPanel mainPane;
     private JPanel userListPane;
     private JLabel userListLabel;
-    private JList<String> userList;
+    private JList<ChatUser> userList;
     private JButton sendButton;
     private JTextField messageField;
     private JPanel sendPane;
     private JPanel chatPane;
     private JLabel chatLabel;
     private JScrollPane scrollChatPane;
-    private JList<String> messagesList;
+    private JList<ChatMessage> messagesList;
     private JTextArea textArea1;
-    //private JFrame frame = new JFrame("Welcome to the chat");
-    private static DefaultListModel<String> messageModel = new DefaultListModel<>();
-    private static DefaultListModel<String> usersModel = new DefaultListModel<>();
+    private static String currentChatUser;
+    //private static DefaultListModel<String> messageModel = new DefaultListModel<>();
+    //private static DefaultListModel<String> usersModel = new DefaultListModel<>();
 
     // Users and messages list
     //private String[] users = {"Pseudo1", "Pseudo2", "Pseudo3", "Pseudo4"};
     //private String[] messages = {"msg1", "msg2", "msg3", "msg4"};
 
+    //Faire des tests de liste de user vide et d'historique de messages vide sinon risque exception !
+
+    // History for tests
+    private ChatUser Nina = new ChatUser("Nina");
+    private ChatUser Alexandre = new ChatUser("Alexandre");
+    private List<ChatMessage> chatMsgListTest = new ArrayList<ChatMessage>();
+
+    private List<ChatMessage> addMessagesToList() {
+       ChatMessage message1 = new ChatMessage(Alexandre,LocalDateTime.now(),"Salut !");
+       ChatMessage message2 = new ChatMessage(Nina,LocalDateTime.now(),"Cc !");
+       ChatMessage message3 = new ChatMessage(Nina,LocalDateTime.now(),"Premier test envoi messages ...");
+       chatMsgListTest.add(message1);
+       chatMsgListTest.add(message2);
+       chatMsgListTest.add(message3);
+       return chatMsgListTest;
+    }
+
     //create the model for users list
 
-    private DefaultListModel<String> setListModel(List<String> list)  {
-        DefaultListModel<String> model = new DefaultListModel<String>();
-        for (String txt : list) {
-            model.addElement(txt);
+    private DefaultListModel<ChatUser> setListModelUsers(List<ChatUser> list)  {
+        DefaultListModel<ChatUser> model = new DefaultListModel<>();
+        for (ChatUser user : list) {
+            model.addElement(user);
         }
         return model;
     }
 
-    private DefaultListModel<String> sendMessage(String message, DefaultListModel<String> model) {
-        model.addElement(message);
+    private DefaultListModel<ChatMessage> setListModelMessages(ChatMessageList listMessages)  {
+        DefaultListModel<ChatMessage> model = new DefaultListModel<>();
+        List<ChatMessage> list = listMessages.getMessages();
+        LocalDateTime now = LocalDateTime.now();
+        ChatUser destUser = listMessages.getSecondUser();
+        for (ChatMessage message : list) {
+            ChatMessage messageConstructed = new ChatMessage(destUser ,now, message.getMessage());
+            model.addElement(messageConstructed);
+        }
         return model;
     }
 
+    private void sendMessage(String message, DefaultListModel<ChatMessage> model) {
+        model.addElement(new ChatMessage(new ChatUser(currentChatUser) ,LocalDateTime.now(), message));
+        messagesList.setModel(model);
+    }
+
+    private void actionOnSend(DefaultListModel<ChatMessage> messageModel, Controller controller){
+        String message = messageField.getText();
+        String user = currentChatUser;
+        sendMessage(message,messageModel);
+        if (!currentChatUser.equals("")) {
+            controller.send(user,message);
+            System.out.println(message+" to "+user);
+        }
+        messageField.setText("");
+    }
+
+    private List<ChatUser> toChatUserList (List<String> list, Controller c) {
+        List<ChatUser> chatList = new ArrayList<ChatUser>();
+        for (String txt : list) {
+            chatList.add(new ChatUser(txt));
+        }
+        return chatList;
+    }
+
     public Welcome(Controller controller) {
+
         JFrame frame = new JFrame("Welcome to the chat");
         init(frame);
-        List<String> users = controller.getUserList();
+        List<ChatUser> users = toChatUserList(controller.getUserList(), controller);
+        List<ChatMessage> messages = Collections.emptyList();
         users.forEach(System.out::println);
         welcomeLabel.setText("Welcome "+ controller.getLogin());
         System.out.println("Window Activated Event");
-        userList.setModel(setListModel(users));
-
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowOpened(WindowEvent e) {
-
-            }
-        });
+        userList.setModel(setListModelUsers(users));
+        ChatMessageList messageListTest = new ChatMessageList(Nina, Alexandre, addMessagesToList());
+        messagesList.setModel(setListModelMessages(messageListTest));
+        DefaultListModel<ChatMessage> messageModel = setListModelMessages(messageListTest);
 
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //messagesList.setModel(sendMessage(messageField.getText(),messageModel));
-                DefaultListModel messagesModelUpdated= (DefaultListModel) messagesList.getModel();
-                messagesList.setModel(sendMessage(messageField.getText(),messagesModelUpdated));
+                actionOnSend(messageModel, controller);
             }
-
-
         });
+
         userList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 System.out.println("User List Selection Activated Event");
                 if (!(e.getValueIsAdjusting())) {
-                    String selected = userList.getSelectedValue().toString();
-                    textArea1.append("Chat with  " + selected+"\n");
+                    currentChatUser = userList.getSelectedValue().toString();
+                    textArea1.append("Chat with  " + currentChatUser+"\n");
+                }
+            }
+        });
+
+        messageField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    actionOnSend(messageModel, controller);
                 }
             }
         });

@@ -5,6 +5,8 @@ import Network.Controller;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class Connect extends JFrame{
@@ -23,6 +25,17 @@ public class Connect extends JFrame{
                 String login = loginField.getText();
                 controller.setUserLogin(login);
                 controller.launchWelcome();
+            }
+        });
+
+        loginField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    String login = loginField.getText();
+                    controller.setUserLogin(login);
+                    controller.launchWelcome();
+                }
             }
         });
     }
