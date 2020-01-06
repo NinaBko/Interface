@@ -107,11 +107,12 @@ public class ManagerNetwork{
         Iterator<User> iteUser = userList.iterator();
         while (iteUser.hasNext()){
             User currentUser = iteUser.next();
-            if (currentUser.getLogin().equals(this.userLogin)){
-                System.out.println("(You) "+currentUser.getLogin()+" "+currentUser.getInetAddress());
-            }else{
+            //if (currentUser.getLogin().equals(this.userLogin)){
+            //    System.out.println("(You) "+currentUser.getLogin()+" "+currentUser.getInetAddress());
+            //}else{
             System.out.println(currentUser.getLogin()+" "+currentUser.getInetAddress());
-            }
+            //
+            // }
         }        
     }
     /*

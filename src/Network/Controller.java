@@ -23,7 +23,7 @@ public class Controller{
 
         new Connect(this);
 
-        this.manager=new ManagerNetwork(this,this.user);
+        //this.manager=new ManagerNetwork(this,this.user);
 
 
 
@@ -91,6 +91,7 @@ public class Controller{
     }
 
     public void launchWelcome(){
+        this.manager=new ManagerNetwork(this,this.user);
         new Welcome(this);
     }
 
