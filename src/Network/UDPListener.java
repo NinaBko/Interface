@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.net.*;
 import java.lang.*;
 
-public class UDPListener extends Thread{
+public class UDPListener{
 
     private ManagerNetwork manager;
 
     public UDPListener(ManagerNetwork man){
         this.manager=man;
-        start();
+        //listen();
     }
 
-    public void run() {
+    public void main(String[] args) {
         while(true){
             DatagramSocket dgramSocket = null;
             try{
@@ -27,8 +27,7 @@ public class UDPListener extends Thread{
             DatagramPacket inPacket = new DatagramPacket(buffer, buffer.length);
             try{
                 dgramSocket.receive(inPacket);            
-                UDPPacket packet = new UDPPacket(inPacket);        
-                //manager.readUDPPacket(packet);
+                UDPPacket packet = new UDPPacket(inPacket);
                 new ReadUDPPacket(packet,this.manager);
             }catch(IOException e){
                 System.out.println("Error IO udplist");
