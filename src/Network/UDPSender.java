@@ -47,17 +47,11 @@ public class UDPSender{
 
 
     public void sendReply(String login, InetAddress address) {
-        //sleep(1000);
         System.out.println("test2 :"+address);
         String msg = "User on network : "+login;
 
-        //DatagramSocket dgramSocket = null;
         DatagramPacket outPacket = null;
-        /*try{
-            dgramSocket = new DatagramSocket();
-        }catch(SocketException e){
-            System.out.println("Error create diagram socket sender");
-        }*/
+
         System.out.println("-- "+msg);
         outPacket = new DatagramPacket(msg.getBytes(), msg.length(),address,3700);
         try{
@@ -67,6 +61,23 @@ public class UDPSender{
             System.out.println("Error send dgram packet");
         }
         System.out.println("test3");
-            //dgramSocket.close();
+    }
+
+
+    public void sendWringLogin(InetAddress address) {
+        System.out.println("test2 :"+address);
+        String msg = "Login already taken";
+
+        DatagramPacket outPacket = null;
+
+        System.out.println("-- "+msg);
+        outPacket = new DatagramPacket(msg.getBytes(), msg.length(),address,3700);
+        try{
+            this.datagramSocket.send(outPacket);
+        }
+        catch(IOException e){
+            System.out.println("Error send dgram packet");
+        }
+        System.out.println("test3");
     }
 }

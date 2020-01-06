@@ -73,17 +73,17 @@ public class ManagerNetwork{
     }
 
     synchronized public void addUser(User user){
+        /*for (User currentUser : userList) {
+            System.out.println(currentUser.getLogin() + " " + currentUser.getInetAddress());
+        }*/
         this.userList.add(user);
     }
 
 
     public void printUserList(){
-        Iterator<User> iteUser = userList.iterator();
-        while (iteUser.hasNext()){
-            User currentUser = iteUser.next();
-            System.out.println(currentUser.getLogin()+" "+currentUser.getInetAddress());
-
-        }        
+        for (User currentUser : userList) {
+            System.out.println(currentUser.getLogin() + " " + currentUser.getInetAddress());
+        }
     }
     /*
     Get Methods
@@ -94,7 +94,7 @@ public class ManagerNetwork{
 
 
 
-    
+
 
 
 

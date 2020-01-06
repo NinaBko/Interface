@@ -35,6 +35,9 @@ public class ReadUDPPacket extends Thread{
             System.out.println("New userList :");
             this.manager.printUserList();
         }
+        else if (data.startsWith("Login already taken")){
+            System.out.println("Change login");
+        }
     }
 
 
