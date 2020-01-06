@@ -18,7 +18,7 @@ public class Server extends Thread{
     public void run() {
         ServerSocket servSocket=null;
         try{
-            servSocket= new ServerSocket(3800);
+            servSocket= new ServerSocket(3600);
             Boolean stop=false;
             while(!stop){
             new TCPListenerThread(servSocket.accept(),this.manager);

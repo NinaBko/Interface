@@ -58,11 +58,6 @@ public class Controller{
         return result;
     }
 
-    private String askPseudo(Scanner sc){
-        System.out.println("Enter your pseudo :");
-        String data = sc.nextLine();
-        return data;
-    }
 
     public void printUserList(){
         manager.printUserList();
