@@ -29,6 +29,9 @@ public class ManagerNetwork{
         this.udpSend.sendReply(this.user.getLogin(),address);
     }
 
+    public void sendUDPFirstMessage(){
+        this.udpSend.sendFirstMessage(this.user.getLogin());
+    }
 
     public void sendMessage(String userName, String msg){
         boolean stop = false;
@@ -50,7 +53,7 @@ public class ManagerNetwork{
         }
     }
 
-    public void MessageReceived(InetAddress destAddr,String msg){
+    public void messageReceived(InetAddress destAddr,String msg){
         boolean found=false;
         User destUser =null;
         System.out.println(destAddr);
@@ -69,12 +72,20 @@ public class ManagerNetwork{
     }
 
     synchronized public void addUser(User user){
-        /*for (User currentUser : userList) {
-            System.out.println(currentUser.getLogin() + " " + currentUser.getInetAddress());
-        }*/
-        this.userList.add(user);
+        boolean found=false;
+        for (User currentUser : userList) {
+            if (currentUser.getLogin()==user.getLogin()){
+                this.udpSend.sendWrongLogin(user.getInetAddress());
+                found=true;
+            }
+        }
+        if (!found){this.userList.add(user);}
     }
 
+
+    public void changeLoginUser(){
+        this.control.changeUserLogin();
+    }
 
     public void printUserList(){
         for (User currentUser : userList) {

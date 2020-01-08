@@ -64,7 +64,7 @@ public class UDPSender{
     }
 
 
-    public void sendWringLogin(InetAddress address) {
+    public void sendWrongLogin(InetAddress address) {
         System.out.println("test2 :"+address);
         String msg = "Login already taken";
 

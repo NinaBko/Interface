@@ -17,7 +17,7 @@ public class Connect extends JFrame{
     private JTextField loginField;
     private JLabel instructionLogin;
 
-    public Connect(Controller controller) {
+    public Connect(Controller controller, int mode) {
         init();
         connectButton.addActionListener(new ActionListener() {
             @Override
@@ -34,7 +34,10 @@ public class Connect extends JFrame{
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
                     String login = loginField.getText();
                     controller.setUserLogin(login);
-                    controller.launchWelcome();
+                    if (mode==1) {
+                        controller.launchWelcome();
+
+                    }
                 }
             }
         });

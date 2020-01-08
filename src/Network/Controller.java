@@ -11,13 +11,14 @@ public class Controller{
 
     private User user;
     private ManagerNetwork manager;
+    private Welcome welcomeWindow;
 
     public Controller(){
 
         InetAddress addr = findUserAddr();
         this.user=new User(null, addr);
 
-        new Connect(this);
+        new Connect(this, 1);
 
 
     }
@@ -73,7 +74,12 @@ public class Controller{
 
     public void launchWelcome(){
         this.manager=new ManagerNetwork(this,this.user);
-        new Welcome(this);
+        this.welcomeWindow=new Welcome(this);
+    }
+
+    public void changeUserLogin(){
+        new Connect(this, 2);
+        this.manager.sendUDPFirstMessage();
     }
 
     public String getLogin() {

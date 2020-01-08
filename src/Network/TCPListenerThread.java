@@ -23,7 +23,7 @@ public class TCPListenerThread extends Thread{
             input = in.readLine();
             System.out.println("Received : "+input);
             InetAddress destAddr = this.link.getInetAddress();
-            this.manager.MessageReceived(destAddr,input);
+            this.manager.messageReceived(destAddr,input);
             this.link.close();
         }
         catch (Exception IOException){
