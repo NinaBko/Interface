@@ -29,8 +29,8 @@ public class ManagerNetwork{
         this.udpSend.sendReply(this.user.getLogin(),address);
     }
 
-    public void sendUDPFirstMessage(){
-        this.udpSend.sendFirstMessage(this.user.getLogin());
+    public void sendUDPLoginChanged(){
+        this.udpSend.sendLoginChanged(this.user.getLogin());
     }
 
     public void sendMessage(String userName, String msg){
@@ -91,6 +91,14 @@ public class ManagerNetwork{
 
     public void changeLoginUser(){
         this.control.changeUserLogin();
+    }
+
+    public void replaceUser(String login, InetAddress addr){
+        for (User currentUser : userList) {
+            if (currentUser.getInetAddress()==addr){
+                currentUser.setLogin(login);
+            }
+        }
     }
 
     public void printUserList(){
