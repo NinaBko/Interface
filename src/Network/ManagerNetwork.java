@@ -33,6 +33,9 @@ public class ManagerNetwork{
     public void sendUDPLoginChanged(){
         this.udpSend.sendLoginChanged(this.user.getLogin());
     }
+    public void sendUDPFirst(){
+        this.udpSend.sendFirstMessage(this.user.getLogin());
+    }
 
     public void sendMessage(String userName, String msg){
         boolean stop = false;

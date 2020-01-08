@@ -79,7 +79,7 @@ public class Controller{
 
     public void changeUserLogin(){
         this.user.setLogin("test");
-        this.manager.sendUDPLoginChanged();
+        this.manager.sendUDPFirst();
     }
 
     public String getLogin() {
