@@ -22,10 +22,6 @@ public class ReadUDPPacket extends Thread{
             String pseudoUser = data.replaceFirst("New User : ", "");
             User newUser = new User(pseudoUser, packet.getInetAddress());
             this.manager.addUser(newUser);
-            this.manager.sendUDPConnectionReply(newUser.getInetAddress());
-            System.out.println("New user on network " + pseudoUser);
-            System.out.println("New userList :");
-            this.manager.printUserList();
         }
         else if (data.startsWith("User on network : ")){
             String pseudoUser = data.replaceFirst("User on network : ", "");

@@ -28,9 +28,7 @@ public class UDPListener extends Thread{
             try{
                 dgramSocket.receive(inPacket);            
                 UDPPacket packet = new UDPPacket(inPacket);
-                System.out.println("tt2");
                 new ReadUDPPacket(packet,this.manager);
-                System.out.println("tt3");
             }catch(IOException e){
                 System.out.println("Error IO udplist");
             }

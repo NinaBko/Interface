@@ -79,7 +79,13 @@ public class ManagerNetwork{
                 found=true;
             }
         }
-        if (!found){this.userList.add(user);}
+        if (!found){
+            this.userList.add(user);
+            sendUDPConnectionReply(user.getInetAddress());
+            System.out.println("New user on network " + user.getLogin());
+            System.out.println("New userList :");
+            printUserList();
+        }
     }
 
 
