@@ -75,7 +75,7 @@ public class ManagerNetwork{
         }
     }
 
-    synchronized public void addUser(User user){
+    synchronized public void addUser(User user, int mode){
         boolean found=false;
         for (User currentUser : userList) {
             System.out.println(currentUser.getLogin());
@@ -87,8 +87,13 @@ public class ManagerNetwork{
         }
         if (!found){
             this.userList.add(user);
-            sendUDPConnectionReply(user.getInetAddress());
-            System.out.println("New user on network " + user.getLogin());
+            if (mode==1) {
+                sendUDPConnectionReply(user.getInetAddress());
+                System.out.println("New user on network added " + user.getLogin());
+            }
+            else if (mode==2){
+                System.out.println("User on network added");
+            }
             //System.out.println("New userList :");
             //printUserList();
         }
