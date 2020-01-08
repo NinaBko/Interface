@@ -26,39 +26,9 @@ public class ManagerNetwork{
     }
 
 
-    //Read the packet received and do something depending on the message
-    public void readUDPPacket(UDPPacket packet) {
-        String data = packet.getData();
-        System.out.println("Packet received");
-        System.out.println("- "+data);
-        if (data.startsWith("New User : ")){
-            String pseudoUser = data.replaceFirst("New User : ", "");
-            User newUser = new User(pseudoUser, packet.getInetAddress());
-            this.userList.add(newUser);
-            sendUDPConnectionReply(newUser.getInetAddress());
-            System.out.println("New user on network " + pseudoUser);
-            System.out.println("New userList :");
-            printUserList();
-            System.out.println("Size of userList : "+this.userList.size());
-        }
-        else if (data.startsWith("User on network : ")){
-            String pseudoUser = data.replaceFirst("User on network : ", "");
-            User newUser = new User(pseudoUser, packet.getInetAddress());
-            userList.add(newUser);
-            System.out.println("User already on network " + pseudoUser);
-            System.out.println("New userList :");
-            printUserList();
-            System.out.println("Size of userList : " + this.userList.size());
-        }
-        
-    } 
-
-    
 
     //Reply to a broadcast
     public void sendUDPConnectionReply(InetAddress address){
-        System.out.println("test");
-        System.out.println(this.userLogin +" "+ address);
         this.udpSend.sendReply(this.userLogin,address);
     }
     
@@ -102,18 +72,18 @@ public class ManagerNetwork{
         }
     }
 
+    synchronized public void addUser(User user){
+        /*for (User currentUser : userList) {
+            System.out.println(currentUser.getLogin() + " " + currentUser.getInetAddress());
+        }*/
+        this.userList.add(user);
+    }
+
 
     public void printUserList(){
-        Iterator<User> iteUser = userList.iterator();
-        while (iteUser.hasNext()){
-            User currentUser = iteUser.next();
-            //if (currentUser.getLogin().equals(this.userLogin)){
-            //    System.out.println("(You) "+currentUser.getLogin()+" "+currentUser.getInetAddress());
-            //}else{
-            System.out.println(currentUser.getLogin()+" "+currentUser.getInetAddress());
-            //
-            // }
-        }        
+        for (User currentUser : userList) {
+            System.out.println(currentUser.getLogin() + " " + currentUser.getInetAddress());
+        }
     }
     /*
     Get Methods
@@ -124,7 +94,7 @@ public class ManagerNetwork{
 
 
 
-    
+
 
 
 

@@ -15,22 +15,13 @@ public class Controller{
     private Scanner sc;
 
     public Controller(){
-        //this.sc=new Scanner(System.in);
-        //String name= askPseudo(sc);
 
         InetAddress addr = findUserAddr();
         this.user=new User(null, addr);
 
         new Connect(this);
 
-        //this.manager=new ManagerNetwork(this,this.user);
 
-
-
-        //Thread tc =new TerminalCommand(this,this.sc);
-        //try{tc.join();}catch(InterruptedException e){}
-        //this.sc.close();
-        
     }
 
 
@@ -58,11 +49,6 @@ public class Controller{
         return result;
     }
 
-    private String askPseudo(Scanner sc){
-        System.out.println("Enter your pseudo :");
-        String data = sc.nextLine();
-        return data;
-    }
 
     public void printUserList(){
         manager.printUserList();

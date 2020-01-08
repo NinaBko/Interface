@@ -3,22 +3,21 @@ package Network;
 import java.net.*;
 import java.io.*;
 import java.lang.*;
-import java.util.*;
 
-public class Server extends Thread{
+public class Server {
 
     private ManagerNetwork manager;
 
     public Server(ManagerNetwork man) {
         this.manager=man;
-        start();
+        //listen();
         
     }
 
-    public void run() {
+    public void main(String[] args) {
         ServerSocket servSocket=null;
         try{
-            servSocket= new ServerSocket(3800);
+            servSocket= new ServerSocket(3600);
             Boolean stop=false;
             while(!stop){
             new TCPListenerThread(servSocket.accept(),this.manager);
