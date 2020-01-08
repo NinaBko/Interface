@@ -4,17 +4,17 @@ import java.net.*;
 import java.io.*;
 import java.lang.*;
 
-public class Server {
+public class Server extends Thread {
 
     private ManagerNetwork manager;
 
     public Server(ManagerNetwork man) {
         this.manager=man;
-        //listen();
+        start();
         
     }
 
-    public void main(String[] args) {
+    public void run() {
         ServerSocket servSocket=null;
         try{
             servSocket= new ServerSocket(3600);

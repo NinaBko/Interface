@@ -1,6 +1,5 @@
 package Network;
 
-import java.io.*;
 import java.net.*;
 import java.util.*;
 
@@ -8,34 +7,31 @@ public class ManagerNetwork{
 
     private UDPSender udpSend;
     private User user;
-    private String userLogin;
     private List<User> userList;
     private Controller control;
 
     public ManagerNetwork(Controller c,User user){
-        this.userLogin = user.getLogin();
-        this.udpSend = new UDPSender(this.userLogin);
-        new UDPListener(this);
-
         this.user=user;
         this.control=c;
 
+        this.udpSend = new UDPSender(this.user.getLogin());
+        new UDPListener(this);
+        new Server(this);
+
         this.userList= new ArrayList<>();
         userList.add(user);
-        new Server(this);
     }
 
 
 
     //Reply to a broadcast
     public void sendUDPConnectionReply(InetAddress address){
-        this.udpSend.sendReply(this.userLogin,address);
+        this.udpSend.sendReply(this.user.getLogin(),address);
     }
-    
-  
+
 
     public void sendMessage(String userName, String msg){
-        Boolean stop = false;
+        boolean stop = false;
         User destUser= new User(null, null);
         int i=0;
         while (i<this.userList.size() && !stop){
@@ -55,7 +51,7 @@ public class ManagerNetwork{
     }
 
     public void MessageReceived(InetAddress destAddr,String msg){
-        Boolean found=false;
+        boolean found=false;
         User destUser =null;
         System.out.println(destAddr);
         for (User u : this.userList){

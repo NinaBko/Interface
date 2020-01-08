@@ -2,7 +2,6 @@ package Network;
 
 import Interface.Connect;
 
-import java.io.IOException;
 import java.net.*;
 import java.util.*;
 import java.lang.*;
@@ -12,7 +11,6 @@ public class Controller{
 
     private User user;
     private ManagerNetwork manager;
-    private Scanner sc;
 
     public Controller(){
 
@@ -49,10 +47,6 @@ public class Controller{
         return result;
     }
 
-
-    public void printUserList(){
-        manager.printUserList();
-    }
     
     public void setUserLogin(String login){
         this.user.setLogin(login);
