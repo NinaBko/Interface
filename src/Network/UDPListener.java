@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.net.*;
 import java.lang.*;
 
-public class UDPListener{
+public class UDPListener extends Thread{
 
     private ManagerNetwork manager;
 
     public UDPListener(ManagerNetwork man){
         this.manager=man;
-        //listen();
+        start();
     }
 
-    public void main(String[] args) {
+    public void run() {
         while(true){
             DatagramSocket dgramSocket = null;
             try{
