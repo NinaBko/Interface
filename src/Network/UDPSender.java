@@ -47,7 +47,7 @@ public class UDPSender{
 
 
     public void sendReply(String login, InetAddress address) {
-        System.out.println("test2 :"+address);
+        System.out.println("test reply :"+address);
         String msg = "User on network : "+login;
 
         DatagramPacket outPacket = null;
@@ -65,7 +65,7 @@ public class UDPSender{
 
 
     public void sendWrongLogin(InetAddress address) {
-        System.out.println("test2 :"+address);
+        System.out.println("test wrongL :"+address);
         String msg = "Login already taken";
 
         DatagramPacket outPacket = null;

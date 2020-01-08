@@ -20,6 +20,7 @@ public class ManagerNetwork{
 
         this.userList= new ArrayList<>();
         userList.add(user);
+        printUserList();
     }
 
 
@@ -74,7 +75,9 @@ public class ManagerNetwork{
     synchronized public void addUser(User user){
         boolean found=false;
         for (User currentUser : userList) {
-            if (currentUser.getLogin()==user.getLogin()){
+            System.out.println(currentUser.getLogin());
+            if (currentUser.getLogin().equals(user.getLogin())){
+                System.out.println("found");
                 this.udpSend.sendWrongLogin(user.getInetAddress());
                 found=true;
             }
@@ -83,8 +86,8 @@ public class ManagerNetwork{
             this.userList.add(user);
             sendUDPConnectionReply(user.getInetAddress());
             System.out.println("New user on network " + user.getLogin());
-            System.out.println("New userList :");
-            printUserList();
+            //System.out.println("New userList :");
+            //printUserList();
         }
     }
 
