@@ -19,7 +19,7 @@ public class Welcome extends JFrame {
     private JPanel mainPane;
     private JPanel userListPane;
     private JLabel userListLabel;
-    private JList<ChatUser> userList;
+    public JList<ChatUser> userList;
     private JButton sendButton;
     private JTextField messageField;
     private JPanel sendPane;
@@ -28,7 +28,10 @@ public class Welcome extends JFrame {
     private JScrollPane scrollChatPane;
     private JList<ChatMessage> messagesList;
     private JTextArea textArea1;
+    private JTabbedPane tabbedPane;
     private static String currentChatUser;
+    private JFrame frame = new JFrame("Welcome to the chat");
+
     //private static DefaultListModel<String> messageModel = new DefaultListModel<>();
     //private static DefaultListModel<String> usersModel = new DefaultListModel<>();
 
@@ -39,14 +42,14 @@ public class Welcome extends JFrame {
     //Faire des tests de liste de user vide et d'historique de messages vide sinon risque exception !
 
     // History for tests
-    private ChatUser Nina = new ChatUser("Nina");
-    private ChatUser Alexandre = new ChatUser("Alexandre");
+    private ChatUser user1 = new ChatUser("user1");
+    private ChatUser user2 = new ChatUser("user2");
     private List<ChatMessage> chatMsgListTest = new ArrayList<ChatMessage>();
 
     private List<ChatMessage> addMessagesToList() {
-       ChatMessage message1 = new ChatMessage(Alexandre,LocalDateTime.now(),"Salut !");
-       ChatMessage message2 = new ChatMessage(Nina,LocalDateTime.now(),"Cc !");
-       ChatMessage message3 = new ChatMessage(Nina,LocalDateTime.now(),"Premier test envoi messages ...");
+       ChatMessage message1 = new ChatMessage(user2,LocalDateTime.now(),"Salut !");
+       ChatMessage message2 = new ChatMessage(user1,LocalDateTime.now(),"Cc !");
+       ChatMessage message3 = new ChatMessage(user1,LocalDateTime.now(),"Premier test envoi messages ...");
        chatMsgListTest.add(message1);
        chatMsgListTest.add(message2);
        chatMsgListTest.add(message3);
@@ -55,7 +58,7 @@ public class Welcome extends JFrame {
 
     //create the model for users list
 
-    private DefaultListModel<ChatUser> setListModelUsers(List<ChatUser> list)  {
+    public DefaultListModel<ChatUser> setListModelUsers(List<ChatUser> list) {
         DefaultListModel<ChatUser> model = new DefaultListModel<>();
         for (ChatUser user : list) {
             model.addElement(user);
@@ -63,24 +66,29 @@ public class Welcome extends JFrame {
         return model;
     }
 
-    private DefaultListModel<ChatMessage> setListModelMessages(ChatMessageList listMessages)  {
+    //Update users list and create a Panel for each user
+    private void updateUsers(Controller c)  {
+        new RefreshWelcome("refresh", this, c);
+    }
+
+    private DefaultListModel<ChatMessage> setListModelMessages(ChatMessageList listMessages) {
         DefaultListModel<ChatMessage> model = new DefaultListModel<>();
         List<ChatMessage> list = listMessages.getMessages();
         LocalDateTime now = LocalDateTime.now();
         ChatUser destUser = listMessages.getSecondUser();
         for (ChatMessage message : list) {
-            ChatMessage messageConstructed = new ChatMessage(destUser ,now, message.getMessage());
+            ChatMessage messageConstructed = new ChatMessage(destUser, now, message.getMessage());
             model.addElement(messageConstructed);
         }
         return model;
     }
 
     private void sendMessage(String message, DefaultListModel<ChatMessage> model) {
-        model.addElement(new ChatMessage(new ChatUser(currentChatUser) ,LocalDateTime.now(), message));
+        model.addElement(new ChatMessage(new ChatUser(currentChatUser), LocalDateTime.now(), message));
         messagesList.setModel(model);
     }
 
-    private void actionOnSend(DefaultListModel<ChatMessage> messageModel, Controller controller){
+    private void actionOnSend(DefaultListModel<ChatMessage> messageModel, Controller controller) {
         String message = messageField.getText();
         String user = currentChatUser;
         sendMessage(message,messageModel);
@@ -91,7 +99,7 @@ public class Welcome extends JFrame {
         messageField.setText("");
     }
 
-    private List<ChatUser> toChatUserList (List<String> list, Controller c) {
+    public List<ChatUser> toChatUserList (List<String> list, Controller c) {
         List<ChatUser> chatList = new ArrayList<ChatUser>();
         for (String txt : list) {
             chatList.add(new ChatUser(txt));
@@ -100,16 +108,15 @@ public class Welcome extends JFrame {
     }
 
     public Welcome(Controller controller) {
-
-        JFrame frame = new JFrame("Welcome to the chat");
         init(frame);
+        updateUsers(controller);
         List<ChatUser> users = toChatUserList(controller.getUserList(), controller);
         List<ChatMessage> messages = Collections.emptyList();
         users.forEach(System.out::println);
         welcomeLabel.setText("Welcome "+ controller.getLogin());
         System.out.println("Window Activated Event");
         userList.setModel(setListModelUsers(users));
-        ChatMessageList messageListTest = new ChatMessageList(Nina, Alexandre, addMessagesToList());
+        ChatMessageList messageListTest = new ChatMessageList(user1, user2, addMessagesToList());
         messagesList.setModel(setListModelMessages(messageListTest));
         DefaultListModel<ChatMessage> messageModel = setListModelMessages(messageListTest);
 
@@ -144,7 +151,7 @@ public class Welcome extends JFrame {
     //for the display of the chat https://stackoverflow.com/questions/18687607/what-component-should-be-used-to-display-messages-in-a-chat-application
     // https://www.codejava.net/java-se/swing/jlist-custom-renderer-example
 
-    public void init(JFrame frame) {
+    private void init(JFrame frame) {
         frame.setContentPane(contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

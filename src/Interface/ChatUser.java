@@ -17,8 +17,6 @@ public class ChatUser {
 
     @Override
     public String toString() {
-        return "ChatUser{" +
-                "Login='" + Login + '\'' +
-                '}';
+        return Login;
     }
 }

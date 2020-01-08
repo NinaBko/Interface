@@ -40,8 +40,6 @@ public class Connect extends JFrame{
         });
     }
 
-    //public static String getLogin(){return login;}
-
     public void init() {
         JFrame frame = new JFrame("Connect");
         frame.setContentPane(contentPane);
