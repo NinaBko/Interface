@@ -82,7 +82,7 @@ public class UDPSender{
     }
 
     public void sendLoginChanged(String login){
-        String msg = "New login :"+login;
+        String msg = "New login : "+login;
 
         DatagramPacket outPacket = null;
 

@@ -78,15 +78,12 @@ public class ManagerNetwork{
     synchronized public void addUser(User user, int mode){
         boolean found=false;
         if (user.getLogin().equals(this.user.getLogin())){
-            System.out.println("found");
             this.udpSend.sendWrongLogin(user.getInetAddress());
             found=true;
         }
         else {
             for (User currentUser : userList) {
-                System.out.println(currentUser.getLogin());
                 if (currentUser.getLogin().equals(user.getLogin())) {
-                    System.out.println("found");
                     this.udpSend.sendWrongLogin(user.getInetAddress());
                     found = true;
                 }
@@ -96,10 +93,6 @@ public class ManagerNetwork{
             this.userList.add(user);
             if (mode==1) {
                 sendUDPConnectionReply(user.getInetAddress());
-                System.out.println("New user on network added " + user.getLogin());
-            }
-            else if (mode==2){
-                System.out.println("User on network added");
             }
         }
     }
@@ -111,7 +104,7 @@ public class ManagerNetwork{
 
     public void replaceUser(String login, InetAddress addr){
         for (User currentUser : userList) {
-            if (currentUser.getInetAddress()==addr){
+            if (currentUser.getInetAddress().equals(addr)){
                 currentUser.setLogin(login);
             }
         }

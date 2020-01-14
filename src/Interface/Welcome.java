@@ -106,6 +106,7 @@ public class Welcome extends JFrame {
             controller.setUserLogin(newLogin);
             welcomeLabel.setText("Welcome " + controller.getLogin());
             loginField.setText("");
+            controller.sendLoginChangeByUser();
         }
     }
 
