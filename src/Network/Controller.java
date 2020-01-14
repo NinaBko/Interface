@@ -18,7 +18,7 @@ public class Controller{
         InetAddress addr = findUserAddr();
         this.user=new User(null, addr);
 
-        new Connect(this, 1);
+        new Connect(this,1);
 
 
     }
@@ -78,7 +78,8 @@ public class Controller{
     }
 
     public void changeUserLogin(){
-        this.user.setLogin("test");
+        //this.user.setLogin("test");
+        new Connect(this,2);
         this.manager.sendUDPFirst();
     }
 
