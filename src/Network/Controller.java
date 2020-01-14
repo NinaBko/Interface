@@ -80,8 +80,12 @@ public class Controller{
         new Connect(this, 2);
     }
 
-    public void sendChangeLogin(){
+    public void sendChangeInitialLogin(){
         this.manager.sendUDPFirst();
+    }
+
+    public void sendLoginChangeByUser(){
+        this.manager.sendUDPLoginChanged();
     }
 
     public String getLogin() {

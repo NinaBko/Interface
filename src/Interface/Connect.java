@@ -28,7 +28,7 @@ public class Connect extends JFrame{
                     controller.launchWelcome();
                 }
                 else if (mode==2){
-                    controller.sendChangeLogin();
+                    controller.sendChangeInitialLogin();
                 }
             }
         });
@@ -43,7 +43,7 @@ public class Connect extends JFrame{
                         controller.launchWelcome();
                     }
                     else if (mode==2){
-                        controller.sendChangeLogin();
+                        controller.sendChangeInitialLogin();
                     }
                 }
             }
