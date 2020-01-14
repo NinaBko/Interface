@@ -1,6 +1,5 @@
 package Interface;
 
-import Network.Chat;
 import Network.Controller;
 
 import javax.swing.*;
@@ -29,6 +28,8 @@ public class Welcome extends JFrame {
     private JList<ChatMessage> messagesList;
     private JTextArea textArea1;
     private JTabbedPane tabbedPane;
+    private JTextField loginField;
+    private JButton buttonChange;
     private static String currentChatUser;
     private JFrame frame = new JFrame("Welcome to the chat");
 
@@ -99,6 +100,15 @@ public class Welcome extends JFrame {
         messageField.setText("");
     }
 
+    private void actionOnChange(Controller controller){
+        String newLogin = loginField.getText();
+        if (!newLogin.equals("")) {
+            controller.setUserLogin(newLogin);
+            welcomeLabel.setText("Welcome " + controller.getLogin());
+            loginField.setText("");
+        }
+    }
+
     public List<ChatUser> toChatUserList (List<String> list, Controller c) {
         List<ChatUser> chatList = new ArrayList<ChatUser>();
         for (String txt : list) {
@@ -125,6 +135,12 @@ public class Welcome extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 actionOnSend(messageModel, controller);
             }
+        });
+
+        buttonChange.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    actionOnChange(controller);
+        }
         });
 
         userList.addListSelectionListener(new ListSelectionListener() {

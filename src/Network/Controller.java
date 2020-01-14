@@ -11,7 +11,6 @@ public class Controller{
 
     private User user;
     private ManagerNetwork manager;
-    private Welcome welcomeWindow;
 
     public Controller(){
 
@@ -74,7 +73,7 @@ public class Controller{
 
     public void launchWelcome(){
         this.manager=new ManagerNetwork(this,this.user);
-        this.welcomeWindow=new Welcome(this);
+        new Welcome(this);
     }
 
     public void changeUserLogin(){

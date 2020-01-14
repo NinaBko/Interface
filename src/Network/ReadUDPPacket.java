@@ -28,8 +28,6 @@ public class ReadUDPPacket extends Thread{
             User newUser = new User(pseudoUser, packet.getInetAddress());
             this.manager.addUser(newUser,2);
             System.out.println("User already on network " + pseudoUser);
-            //System.out.println("New userList :");
-            //this.manager.printUserList();
         }
         else if (data.startsWith("New login :")){
             String pseudoUser = data.replaceFirst("New login : ", "");
