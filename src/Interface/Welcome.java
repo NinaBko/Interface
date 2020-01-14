@@ -174,4 +174,6 @@ public class Welcome extends JFrame {
         frame.pack();
         frame.setVisible(true);
     }
+
+    public void changeText(String text){}
 }

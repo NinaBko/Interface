@@ -19,8 +19,6 @@ public class ManagerNetwork{
         new Server(this);
 
         this.userList= new ArrayList<>();
-        //userList.add(user);
-        printUserList();
     }
 
 
