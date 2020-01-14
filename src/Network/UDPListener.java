@@ -30,7 +30,8 @@ public class UDPListener extends Thread{
             try{
                 dgramSocket.receive(inPacket);            
                 UDPPacket packet = new UDPPacket(inPacket);
-                if (packet.getInetAddress()!=this.ourAddr) {
+                System.out.println(packet.getInetAddress()+" -- "+ this.ourAddr);
+                if (!packet.getInetAddress().equals(this.ourAddr)) {
                     new ReadUDPPacket(packet, this.manager);
                 }
             }catch(IOException e){
