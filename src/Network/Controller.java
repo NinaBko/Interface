@@ -78,8 +78,10 @@ public class Controller{
     }
 
     public void changeUserLogin(){
-        //this.user.setLogin("test2");
         new Connect(this, 2);
+    }
+
+    public void sendChangeLogin(){
         this.manager.sendUDPFirst();
     }
 

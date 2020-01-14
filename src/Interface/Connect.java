@@ -24,7 +24,12 @@ public class Connect extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String login = loginField.getText();
                 controller.setUserLogin(login);
-                controller.launchWelcome();
+                if (mode==1) {
+                    controller.launchWelcome();
+                }
+                else if (mode==2){
+                    controller.sendChangeLogin();
+                }
             }
         });
 
@@ -36,7 +41,9 @@ public class Connect extends JFrame{
                     controller.setUserLogin(login);
                     if (mode==1) {
                         controller.launchWelcome();
-
+                    }
+                    else if (mode==2){
+                        controller.sendChangeLogin();
                     }
                 }
             }
