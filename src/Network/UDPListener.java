@@ -7,9 +7,11 @@ import java.lang.*;
 public class UDPListener extends Thread{
 
     private ManagerNetwork manager;
+    private InetAddress ourAddr;
 
-    public UDPListener(ManagerNetwork man){
+    public UDPListener(ManagerNetwork man, InetAddress addr){
         this.manager=man;
+        this.ourAddr=addr;
         start();
     }
 
@@ -28,7 +30,9 @@ public class UDPListener extends Thread{
             try{
                 dgramSocket.receive(inPacket);            
                 UDPPacket packet = new UDPPacket(inPacket);
-                new ReadUDPPacket(packet,this.manager);
+                if (packet.getInetAddress()!=this.ourAddr) {
+                    new ReadUDPPacket(packet, this.manager);
+                }
             }catch(IOException e){
                 System.out.println("Error IO udplist");
             }
