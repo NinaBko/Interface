@@ -24,29 +24,15 @@ public class Connect extends JFrame{
         connectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String login = loginField.getText();
-                controller.setUserLogin(login);
-                if (mode==1) {
-                    controller.launchWelcome();
-                }
-                else if (mode==2){
-                    controller.sendChangeInitialLogin();
-                }
+                action(controller,mode);
             }
         });
 
-        loginField.addKeyListener(new KeyAdapter() {
+        idField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
-                    String login = loginField.getText();
-                    controller.setUserLogin(login);
-                    if (mode==1) {
-                        controller.launchWelcome();
-                    }
-                    else if (mode==2){
-                        controller.sendChangeInitialLogin();
-                    }
+                    action(controller,mode);
                 }
             }
         });
@@ -58,5 +44,21 @@ public class Connect extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    public void action(Controller controller, int mode){
+        String login = loginField.getText();
+        String id = idField.getText();
+        if ((!login.equals(""))&&(!id.equals(""))){
+            if(controller.checkID(id)){
+                controller.setUserLogin(login);
+                if (mode==1) {
+                    controller.launchWelcome();
+                }
+                else if (mode==2){
+                    controller.sendChangeInitialLogin();
+                }
+            }
+        }
     }
 }

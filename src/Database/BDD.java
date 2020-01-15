@@ -38,5 +38,20 @@ public class BDD {
         }
     }
 
+    public boolean checkID(String id){
+        boolean inTable=false;
+        try {
+            ResultSet rs = stmt.executeQuery("select * from user");
+            while (rs.next()){
+                if (rs.getString(1).equals(id)){
+                    inTable=true;
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return inTable;
+    }
+
 
 }

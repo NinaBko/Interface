@@ -1,7 +1,7 @@
 package Network;
 
 import Interface.Connect;
-
+import Database.BDD;
 import java.net.*;
 import java.util.*;
 import java.lang.*;
@@ -11,12 +11,14 @@ public class Controller{
 
     private User user;
     private ManagerNetwork manager;
+    private BDD BDDcon;
 
     public Controller(){
 
         InetAddress addr = findUserAddr();
         this.user=new User(null, addr);
 
+        this.BDDcon=new BDD();
         new Connect(this,1);
 
 
@@ -86,6 +88,10 @@ public class Controller{
 
     public void sendLoginChangeByUser(){
         this.manager.sendUDPLoginChanged();
+    }
+
+    public boolean checkID(String id){
+        return this.BDDcon.checkID(id);
     }
 
     public String getLogin() {
