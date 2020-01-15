@@ -90,8 +90,8 @@ public class Controller{
         this.manager.sendUDPLoginChanged();
     }
 
-    public boolean checkID(String id){
-        return this.BDDcon.checkID(id);
+    public boolean checkID(String id,String login){
+        return this.BDDcon.checkID(id,login);
     }
 
     public String getLogin() {

@@ -6,13 +6,12 @@ import java.io.*;
 public class BDD {
 
     private Connection con;
-    private Statement stmt;
 
     public BDD(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
             this.con=DriverManager.getConnection("jdbc:mysql://srv-bdens.insa-toulouse.fr:3306/tpservlet_04","tpservlet_04","ua1laeW1");
-            this.stmt=con.createStatement();
+
 
 
         }catch(Exception e){ System.out.println(e);}
@@ -21,9 +20,12 @@ public class BDD {
 
     public void printTableUser(){
         try {
+            Statement stmt = this.con.createStatement();
             ResultSet rs = stmt.executeQuery("select * from user");
             while (rs.next())
                 System.out.println(rs.getString(1));
+            rs.close();
+            stmt.close();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -38,19 +40,36 @@ public class BDD {
         }
     }
 
-    public boolean checkID(String id){
+    public boolean checkID(String id,String login){
         boolean inTable=false;
         try {
+            Statement stmt = this.con.createStatement();
             ResultSet rs = stmt.executeQuery("select * from user");
-            while (rs.next()){
+            while (rs.next()&&!inTable){
                 if (rs.getString(1).equals(id)){
                     inTable=true;
+                    updateLogin(id,login);
                 }
             }
+            rs.close();
+            stmt.close();
         }catch(Exception e){
             System.out.println(e);
         }
+
         return inTable;
+    }
+
+    public void updateLogin(String id, String login){
+        try {
+            Statement stmt = this.con.createStatement();
+            int t = stmt.executeUpdate("update user set login='" + login + "' where id='" + id + "'");
+            stmt.close();
+            System.out.println(t + " row changed");
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
     }
 
 

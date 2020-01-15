@@ -50,7 +50,7 @@ public class Connect extends JFrame{
         String login = loginField.getText();
         String id = idField.getText();
         if ((!login.equals(""))&&(!id.equals(""))){
-            if(controller.checkID(id)){
+            if(controller.checkID(id,login)){
                 controller.setUserLogin(login);
                 if (mode==1) {
                     controller.launchWelcome();
