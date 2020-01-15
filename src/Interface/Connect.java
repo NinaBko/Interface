@@ -16,6 +16,8 @@ public class Connect extends JFrame{
     private JPanel loginFieldPane;
     private JTextField loginField;
     private JLabel instructionLogin;
+    private JTextField idField;
+    private JLabel instructionId;
 
     public Connect(Controller controller, int mode) {
         init();
