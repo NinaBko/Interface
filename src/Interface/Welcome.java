@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Welcome extends JFrame {
+public class Welcome{
     private JPanel contentPane;
     private JLabel welcomeLabel;
     private JPanel mainPane;
@@ -175,5 +175,7 @@ public class Welcome extends JFrame {
         frame.setVisible(true);
     }
 
-    public void changeText(String text){}
+    public void visible(boolean b){
+        this.frame.setVisible(b);
+    }
 }

@@ -13,6 +13,7 @@ public class Controller{
     private User user;
     private ManagerNetwork manager;
     private BDD BDDcon;
+    private Welcome mainWindow;
 
     public Controller(){
 
@@ -76,14 +77,16 @@ public class Controller{
 
     public void launchWelcome(){
         this.manager=new ManagerNetwork(this,this.user);
-        new Welcome(this);
+        this.mainWindow=new Welcome(this);
     }
 
     public void changeUserLogin(){
+        this.mainWindow.visible(false);
         new ChangeLogin(this);
     }
 
     public void sendChangeInitialLogin(){
+        this.mainWindow.visible(true);
         this.manager.sendUDPFirst();
     }
 
