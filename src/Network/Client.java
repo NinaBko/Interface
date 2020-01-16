@@ -29,7 +29,8 @@ public class Client extends Thread{
 		}
 		
 		try {
-			
+
+			assert link != null;
 			PrintWriter out = new PrintWriter(link.getOutputStream(),true);
 			out.println(this.msg);
 			link.close();

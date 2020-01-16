@@ -109,22 +109,13 @@ public class ManagerNetwork{
     }
 
     public void removeUser (InetAddress addr){
-        for (User current : this.userList){
-            if (current.getInetAddress().equals(addr)){
-                this.userList.remove(current);
-            }
-        }
+        this.userList.removeIf(current -> current.getInetAddress().equals(addr));
     }
 
     public void close(){
         this.udpSend.sendDisconnection();
     }
 
-    public void printUserList(){
-        for (User currentUser : userList) {
-            System.out.println(currentUser.getLogin() + " " + currentUser.getInetAddress());
-        }
-    }
     /*
     Get Methods
     */

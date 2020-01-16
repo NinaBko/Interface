@@ -37,6 +37,7 @@ public class Controller{
         catch(SocketException e){
             System.out.println("SocketException in findUserAddr");
         }
+        assert inter != null;
         while ((result==null)&&(inter.hasMoreElements())){
             NetworkInterface currentInter = inter.nextElement();
             List<InterfaceAddress> listAddr = currentInter.getInterfaceAddresses();
