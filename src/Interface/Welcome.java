@@ -163,6 +163,16 @@ public class Welcome{
                 }
             }
         });
+
+
+        this.frame.addWindowListener(new java.awt.event.WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("Closing App");
+                controller.disconnect();
+            }
+        });
+
     }
 
     //for the display of the chat https://stackoverflow.com/questions/18687607/what-component-should-be-used-to-display-messages-in-a-chat-application

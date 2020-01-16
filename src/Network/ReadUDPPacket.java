@@ -33,8 +33,11 @@ public class ReadUDPPacket extends Thread{
             String pseudoUser = data.replaceFirst("New login : ", "");
             this.manager.replaceUser(pseudoUser, packet.getInetAddress());
         }
-        else if (data.startsWith("Login already taken")){
+        else if (data.equals("Login already taken")){
             this.manager.changeLoginUser();
+        }
+        else if (data.equals("User disconnected")){
+            this.manager.removeUser(this.packet.getInetAddress());
         }
     }
 

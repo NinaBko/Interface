@@ -101,4 +101,25 @@ public class UDPSender{
             System.out.println("Error send dgram packet");
         }
     }
+
+    public void sendDisconnection(){
+        String msg = "User disconnected";
+
+        DatagramPacket outPacket = null;
+
+        System.out.println("-- "+msg);
+        try {
+            outPacket = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName("10.1.255.255"), 3700);
+        }
+        catch(UnknownHostException e){
+            System.out.println("Error outpacket send LoginChanged");
+        }
+
+        try{
+            this.datagramSocket.send(outPacket);
+        }
+        catch(IOException e){
+            System.out.println("Error send dgram packet");
+        }
+    }
 }

@@ -98,6 +98,10 @@ public class Controller{
         return this.BDDcon.checkID(id,login);
     }
 
+    public void disconnect(){
+        this.manager.close();
+    }
+
     public String getLogin() {
         return this.user.getLogin();
    }
