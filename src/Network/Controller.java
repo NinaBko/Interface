@@ -1,5 +1,6 @@
 package Network;
 
+import Interface.ChangeLogin;
 import Interface.Connect;
 import Database.BDD;
 import java.net.*;
@@ -19,7 +20,7 @@ public class Controller{
         this.user=new User(null, addr);
 
         this.BDDcon=new BDD();
-        new Connect(this,1);
+        new Connect(this);
 
 
     }
@@ -79,7 +80,7 @@ public class Controller{
     }
 
     public void changeUserLogin(){
-        new Connect(this, 2);
+        new ChangeLogin(this);
     }
 
     public void sendChangeInitialLogin(){

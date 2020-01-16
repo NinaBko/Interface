@@ -6,6 +6,7 @@ import java.io.*;
 
 public class User{
     private String userLogin;
+    private String id;
     private InetAddress addr;
 
     public User(String login, InetAddress addr){
@@ -21,6 +22,8 @@ public class User{
         return this.userLogin;
     }
 
+    public String getId(){return this.id;}
+
     public InetAddress getInetAddress(){
         return this.addr;
     }
@@ -32,6 +35,8 @@ public class User{
     public void setLogin(String login){
         this.userLogin=login;
     }
+
+    public void setId(String id){this.id=id;}
 
     
 

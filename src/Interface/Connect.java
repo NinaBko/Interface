@@ -9,7 +9,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 
-public class Connect extends JFrame{
+public class Connect {
+    private JFrame frame;
     private JPanel contentPane;
     private JButton connectButton;
     private JPanel connectButtonPane;
@@ -19,12 +20,13 @@ public class Connect extends JFrame{
     private JTextField idField;
     private JLabel instructionId;
 
-    public Connect(Controller controller, int mode) {
+    public Connect(Controller controller) {
+        this.frame=new JFrame("Connect");
         init();
         connectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                action(controller,mode);
+                action(controller);
             }
         });
 
@@ -32,33 +34,30 @@ public class Connect extends JFrame{
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
-                    action(controller,mode);
+                    action(controller);
                 }
             }
         });
     }
 
     public void init() {
-        JFrame frame = new JFrame("Connect");
-        frame.setContentPane(contentPane);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        this.frame.setContentPane(contentPane);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.pack();
+        this.frame.setVisible(true);
     }
 
-    public void action(Controller controller, int mode){
+    public void action(Controller controller){
         String login = loginField.getText();
         String id = idField.getText();
         if ((!login.equals(""))&&(!id.equals(""))){
             if(controller.checkID(id,login)){
                 controller.setUserLogin(login);
-                if (mode==1) {
-                    controller.launchWelcome();
-                }
-                else if (mode==2){
-                    controller.sendChangeInitialLogin();
-                }
+                controller.launchWelcome();
+                this.frame.setVisible(false);
+                this.frame.dispose();
             }
         }
     }
+
 }
