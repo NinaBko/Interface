@@ -2,6 +2,9 @@ package Database;
 
 import java.sql.*;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class BDD {
 
@@ -76,14 +79,36 @@ public class BDD {
         String id="";
         try{
             Statement stmt = this.con.createStatement();
-            ResultSet rs = stmt.executeQuery("select id from user where login="+login);
+            ResultSet rs = stmt.executeQuery("select id from user where login='"+login+"'");
+            rs.next();
             id =rs.getString(1);
-
+            rs.close();
+            stmt.close();
         }
         catch (Exception e){
             System.out.println(e);
         }
         return id;
+    }
+
+    public void addMessage(String sender, String receiver, String message){
+        String Date = LocalDate.now().toString();
+        String Time = LocalTime.now().toString();
+        String DateSql = Date + " " + Time.substring(0, Time.length()-4);
+        int id=0;
+        try{
+            Statement stmt = this.con.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(*) from message");
+            rs.next();
+            id=rs.getInt(1);
+            rs.close();
+            System.out.println("test");
+            stmt.executeUpdate("INSERT INTO message (id,sender,receiver,date,data)" +
+                    "               VALUES ('"+id+"','"+sender+"','"+receiver+"','"+DateSql+"','"+message+"')");
+            stmt.close();
+        }
+        catch(Exception e){System.out.println(e);}
+
     }
 
 
