@@ -72,5 +72,20 @@ public class BDD {
         }
     }
 
+    public String findId(String login){
+        String id="";
+        try{
+            Statement stmt = this.con.createStatement();
+            ResultSet rs = stmt.executeQuery("select id from user where login="+login);
+            id =rs.getString(1);
+
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return id;
+    }
+
+
 
 }

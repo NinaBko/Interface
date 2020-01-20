@@ -53,6 +53,7 @@ public class Connect {
         if ((!login.equals(""))&&(!id.equals(""))){
             if(controller.checkID(id,login)){
                 controller.setUserLogin(login);
+                controller.setUserId(id);
                 controller.launchWelcome();
                 this.frame.setVisible(false);
                 this.frame.dispose();

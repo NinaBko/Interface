@@ -88,6 +88,8 @@ public class ManagerNetwork{
             }
         }
         if (!found){
+            String id = this.control.findId(user.getLogin());
+            user.setId(id);
             this.userList.add(user);
             if (mode==1) {
                 sendUDPConnectionReply(user.getInetAddress());

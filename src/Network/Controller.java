@@ -57,6 +57,8 @@ public class Controller{
         this.user.setLogin(login);
     }
 
+    public void setUserId(String id){this.user.setId(id);}
+
     public void send(String userName, String msg){
         System.out.println("test : "+userName);
         this.manager.sendMessage(userName, msg);
@@ -97,6 +99,10 @@ public class Controller{
 
     public boolean checkID(String id,String login){
         return this.BDDcon.checkID(id,login);
+    }
+
+    public String findId(String login){
+        return this.BDDcon.findId(login);
     }
 
     public void disconnect(){
