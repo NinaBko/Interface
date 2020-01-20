@@ -5,6 +5,8 @@ import Network.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ChangeLogin {
     private JPanel panel1;
@@ -31,6 +33,21 @@ public class ChangeLogin {
                 }
             }
         });
+
+        loginField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                String newLogin = loginField.getText();
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    if (!newLogin.equals("")){
+                        controller.setUserLogin(newLogin);
+                        controller.sendChangeInitialLogin();
+                        frame.dispose();
+                    }
+                }
+            }
+        });
+
     }
 
 
