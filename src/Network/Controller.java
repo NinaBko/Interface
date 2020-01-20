@@ -82,7 +82,7 @@ public class Controller{
     }
 
     public void changeUserLogin(){
-        this.mainWindow.visible(false);
+        //this.mainWindow.visible(false);
         new ChangeLogin(this);
     }
 
