@@ -107,6 +107,7 @@ public class Controller{
     }
 
     public void disconnect(){
+        this.BDDcon.removeLogin(this.user.getId());
         this.manager.close();
     }
 

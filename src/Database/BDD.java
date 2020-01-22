@@ -75,6 +75,18 @@ public class BDD {
         }
     }
 
+    public void removeLogin(String id){
+        try {
+            Statement stmt = this.con.createStatement();
+            int t = stmt.executeUpdate("update user set login=NULL where id='" + id + "'");
+            stmt.close();
+            System.out.println(t + " row changed");
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
     public String findId(String login){
         String id="";
         try{
