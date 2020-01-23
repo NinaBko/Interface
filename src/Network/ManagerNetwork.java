@@ -91,6 +91,7 @@ public class ManagerNetwork{
             String id = this.control.findId(user.getLogin());
             user.setId(id);
             this.userList.add(user);
+            this.control.addUser(user.getLogin());
             if (mode==1) {
                 sendUDPConnectionReply(user.getInetAddress());
             }
@@ -102,16 +103,28 @@ public class ManagerNetwork{
         this.control.changeUserLogin();
     }
 
-    public void replaceUser(String login, InetAddress addr){
+    synchronized public void replaceUser(String login, InetAddress addr){
+        String oldLogin=null;
         for (User currentUser : userList) {
             if (currentUser.getInetAddress().equals(addr)){
+                oldLogin=currentUser.getLogin();
                 currentUser.setLogin(login);
             }
         }
+        this.control.changeLogin(oldLogin,login);
     }
 
-    public void removeUser (InetAddress addr){
-        this.userList.removeIf(current -> current.getInetAddress().equals(addr));
+    synchronized public void removeUser (InetAddress addr){
+        String login=null;
+        for (User currentUser : userList) {
+            if (currentUser.getInetAddress().equals(addr)){
+                login=currentUser.getLogin();
+                this.userList.remove(currentUser);
+            }
+        }
+        if (login!=null) {
+            this.control.removeUser(login);
+        }
     }
 
     public void close(){

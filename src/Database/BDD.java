@@ -5,6 +5,8 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BDD {
 
@@ -102,11 +104,26 @@ public class BDD {
         }
         return id;
     }
+    public String findLogin(String id){
+        String login="";
+        try{
+            Statement stmt = this.con.createStatement();
+            ResultSet rs = stmt.executeQuery("select login from user where id='"+id+"'");
+            rs.next();
+            login =rs.getString(1);
+            rs.close();
+            stmt.close();
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return login;
+    }
 
     public void addMessage(String sender, String receiver, String message){
         String Date = LocalDate.now().toString();
         String Time = LocalTime.now().toString();
-        String DateSql = Date + " " + Time.substring(0, Time.length()-4);
+        String DateSql = Date + " " + Time.substring(0, Time.length()-7);
         int id=0;
         try{
             Statement stmt = this.con.createStatement();
@@ -123,6 +140,29 @@ public class BDD {
 
     }
 
-
+    public List<MessageHistory> getHistory(String user1,String user2){
+        List<MessageHistory> history = new ArrayList<>();
+        try {
+            Statement stmt = this.con.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from message where (receiver='"+user1+"' AND sender='"+user2+"')OR(receiver='"+user2+"' AND sender='"+user1+"') order by date");
+            while(rs.next()){
+                String sender=findLogin(rs.getString(2));
+                String receiver=findLogin(rs.getString(3));
+                String message=rs.getString(5);
+                java.sql.Time dbSqlTime = rs.getTime(4);
+                java.sql.Date dbSqlDate = rs.getDate(4);
+                LocalTime time = dbSqlTime.toLocalTime();
+                LocalDate date = dbSqlDate.toLocalDate();
+                System.out.println("Found : "+sender+" "+receiver+" "+date+" "+time+" "+ " "+message);
+                MessageHistory newMessage = new MessageHistory(sender,receiver,date,time,message);
+                history.add(newMessage);
+                System.out.println(history.size());
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+        return history;
+    }
 
 }

@@ -1,5 +1,6 @@
 package Network;
 
+import Database.MessageHistory;
 import Interface.ChangeLogin;
 import Interface.Connect;
 import Database.BDD;
@@ -70,31 +71,24 @@ public class Controller{
 
     }
 
-    public List<String> getUserList(){
-        List<String> userNameList=new ArrayList<>();
-        List<User> userList=this.manager.getUserList();
-        for (User u:userList){
-            userNameList.add(u.getLogin());
-        }
-        return userNameList;
-    }
 
     public void launchWelcome(){
         this.manager=new ManagerNetwork(this,this.user);
-        this.mainWindow=new Welcome(this);
+        this.mainWindow=new Welcome(this, this.user.getLogin());
     }
 
     public void changeUserLogin(){
-        //this.mainWindow.visible(false);
         new ChangeLogin(this);
     }
 
     public void sendChangeInitialLogin(){
+        this.BDDcon.updateLogin(this.user.getId(),this.user.getLogin());
         this.mainWindow.visible(true);
         this.manager.sendUDPFirst();
     }
 
     public void sendLoginChangeByUser(){
+        this.BDDcon.updateLogin(this.user.getId(),this.user.getLogin());
         this.manager.sendUDPLoginChanged();
     }
 
@@ -113,6 +107,22 @@ public class Controller{
 
     public String getLogin() {
         return this.user.getLogin();
+   }
+
+   public void addUser(String login){
+        this.mainWindow.addUser(login);
+   }
+
+   public void removeUser(String login){
+        this.mainWindow.removeUser(login);
+   }
+
+   public void changeLogin(String oldLogin,String newLogin){
+        this.mainWindow.modifyUser(oldLogin,newLogin);
+   }
+
+   public List<MessageHistory> getHistory(String user){
+        return this.BDDcon.getHistory(this.BDDcon.findId(this.user.getLogin()),this.BDDcon.findId(user));
    }
 
 }
