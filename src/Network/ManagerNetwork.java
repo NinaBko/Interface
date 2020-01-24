@@ -133,12 +133,7 @@ public class ManagerNetwork{
         this.udpSend.sendDisconnection();
     }
 
-    /*
-    Get Methods
-    */
-    public List<User> getUserList(){
-        return userList;
-    }
+
 
 
 

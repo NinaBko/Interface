@@ -100,4 +100,8 @@ public class ChatSession {
             display2(current.getSender(),current.getMessage(),current.getDate(),current.getTime());
         }
     }
+
+    public void close(){
+        this.frame.dispose();
+    }
 }

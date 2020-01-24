@@ -68,7 +68,7 @@ public class Controller{
     public void displayMessageReceived(User user, String message){
         System.out.println("Message received from "+user.getLogin()+" : "+message);
         this.BDDcon.addMessage(user.getId(),this.user.getId(),message);
-
+        this.mainWindow.displayMessage(user.getLogin(),message);
     }
 
 
