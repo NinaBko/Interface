@@ -12,14 +12,15 @@ import Interface.Welcome;
 public class Controller{
 
     private User user;
+    private String addrBroadcast;
     private ManagerNetwork manager;
     private BDD BDDcon;
     private Welcome mainWindow;
 
-    public Controller(){
+    public Controller(String addr){
 
-        InetAddress addr = findUserAddr();
-        this.user=new User(null, addr);
+        this.addrBroadcast=addr;
+        this.user=new User(null, null);
 
         this.BDDcon=new BDD();
         new Connect(this);
@@ -125,6 +126,10 @@ public class Controller{
 
    public List<MessageHistory> getHistory(String user){
         return this.BDDcon.getHistory(this.BDDcon.findId(this.user.getLogin()),this.BDDcon.findId(user));
+   }
+
+   public String getAddrBroadcast(){
+        return this.addrBroadcast;
    }
 
 }

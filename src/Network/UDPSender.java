@@ -8,8 +8,10 @@ import java.lang.*;
 public class UDPSender{
 
     private DatagramSocket datagramSocket;
+    private String addr;
 
-    public UDPSender(String login){
+    public UDPSender(String login,String addrBroadcast){
+        this.addr=addrBroadcast;
         try{
         this.datagramSocket= new DatagramSocket();
         }catch(SocketException e){
@@ -31,7 +33,8 @@ public class UDPSender{
             System.out.println("Error create diagram socket sender");
         }
         try{
-            outPacket = new DatagramPacket(msg.getBytes(), msg.length(),InetAddress.getByName("10.1.255.255"),3700);
+            System.out.println(this.addr);
+            outPacket = new DatagramPacket(msg.getBytes(), msg.length(),InetAddress.getByName(this.addr),3700);
         }catch(UnknownHostException e){
             System.out.println("Error create dgram packet");
         }
