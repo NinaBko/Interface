@@ -111,6 +111,8 @@ public class Controller{
    }
 
    public void addUser(String login){
+        System.out.println(login);
+        while(this.mainWindow==null){}
         this.mainWindow.addUser(login);
    }
 
