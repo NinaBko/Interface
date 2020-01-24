@@ -92,13 +92,17 @@ public class Welcome{
     public void removeUser(String oldUser){
         this.listModel.removeElement(oldUser);
         ChatSession toRemove=null;
+        boolean found=false;
         for (ChatSession current:listSession){
             if (current.getDistUser().equals(oldUser)){
                 toRemove=current;
+                found=true;
             }
         }
-        toRemove.close();
-        this.listSession.remove(toRemove);
+        if(found) {
+            toRemove.close();
+            this.listSession.remove(toRemove);
+        }
     }
 
     public void modifyUser(String oldLogin,String newLogin){
