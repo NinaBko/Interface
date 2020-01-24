@@ -52,11 +52,13 @@ public class UDPSender{
     public void sendReply(String login, InetAddress address) {
         System.out.println("test reply :"+address);
         String msg = "User on network : "+login;
+        byte[] sendData = new byte[256];
 
         DatagramPacket outPacket = null;
 
         System.out.println("-- "+msg);
-        outPacket = new DatagramPacket(msg.getBytes(), msg.length(),address,3700);
+        sendData=msg.getBytes();
+        outPacket = new DatagramPacket(sendData, sendData.length,address,3700);
         try{
             this.datagramSocket.send(outPacket);
         }
