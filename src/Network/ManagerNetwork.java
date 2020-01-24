@@ -116,13 +116,15 @@ public class ManagerNetwork{
 
     synchronized public void removeUser (InetAddress addr){
         String login=null;
+        User toRemove=new User(null,null);
         for (User currentUser : userList) {
             if (currentUser.getInetAddress().equals(addr)){
                 login=currentUser.getLogin();
-                this.userList.remove(currentUser);
+                toRemove = currentUser;
             }
         }
         if (login!=null) {
+            this.userList.remove(toRemove);
             this.control.removeUser(login);
         }
     }
