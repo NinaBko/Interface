@@ -74,7 +74,7 @@ public class Controller{
 
     public void launchWelcome(){
         this.manager=new ManagerNetwork(this,this.user);
-        this.mainWindow=new Welcome(this, this.user.getLogin());
+        this.mainWindow=new Welcome(this);
     }
 
     public void changeUserLogin(){
@@ -83,7 +83,7 @@ public class Controller{
 
     public void sendChangeInitialLogin(){
         this.BDDcon.updateLogin(this.user.getId(),this.user.getLogin());
-        this.mainWindow.visible(true);
+        this.mainWindow.changeLogin(this.user.getLogin());
         this.manager.sendUDPFirst();
     }
 
@@ -112,7 +112,6 @@ public class Controller{
 
    public void addUser(String login){
         System.out.println(login);
-        while(this.mainWindow==null){}
         this.mainWindow.addUser(login);
    }
 

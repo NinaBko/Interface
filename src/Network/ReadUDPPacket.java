@@ -26,6 +26,11 @@ public class ReadUDPPacket extends Thread{
         else if (data.startsWith("User on network : ")){
             String pseudoUser = data.replaceFirst("User on network : ", "");
             User newUser = new User(pseudoUser, packet.getInetAddress());
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             this.manager.addUser(newUser,2);
             System.out.println("User already on network " + pseudoUser);
         }

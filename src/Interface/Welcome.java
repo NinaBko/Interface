@@ -24,8 +24,8 @@ public class Welcome{
 
 
 
-    public Welcome(Controller controller, String mainUser) {
-        init(frame,mainUser);
+    public Welcome(Controller controller) {
+        init(frame);
         welcomeLabel.setText("Welcome " + controller.getLogin());
 
 
@@ -58,8 +58,7 @@ public class Welcome{
     }
 
 
-    private void init(JFrame frame, String mainUserLogin) {
-        listModel.addElement(mainUserLogin);
+    private void init(JFrame frame) {
         this.userList.setModel(listModel);
         this.userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         frame.setContentPane(contentPane);
@@ -71,13 +70,17 @@ public class Welcome{
 
     private void actionOnChange(Controller controller){
         String newLogin = loginField.getText();
-        String oldLogin = controller.getLogin();
         if (!newLogin.equals("")) {
-            controller.setUserLogin(newLogin);
-            welcomeLabel.setText("Welcome " + controller.getLogin());
-            loginField.setText("");
-            controller.sendLoginChangeByUser();
-            modifyUser(oldLogin,newLogin);
+
+            if (this.listModel.contains(newLogin)){
+                loginField.setText("");
+            }
+            else {
+                controller.setUserLogin(newLogin);
+                welcomeLabel.setText("Welcome " + controller.getLogin());
+                loginField.setText("");
+                controller.sendLoginChangeByUser();
+            }
         }
     }
 
@@ -137,5 +140,9 @@ public class Welcome{
                 current.display(distUser,message);
             }
         }
+    }
+
+    public void changeLogin(String newLogin){
+        this.welcomeLabel.setText("Welcome " + newLogin);
     }
 }
