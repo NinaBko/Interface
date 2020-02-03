@@ -23,7 +23,7 @@ public class Controller{
         System.out.println("Starting Database connection");
         this.BDDcon=new BDD();
         System.out.println("Database connection established");
-        
+
         new Connect(this);
 
 
