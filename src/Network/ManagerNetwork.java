@@ -16,6 +16,7 @@ public class ManagerNetwork{
 
         this.udpSend = new UDPSender(this.user.getLogin(),this.control.getAddrBroadcast());
         new UDPListener(this, this.user.getInetAddress());
+        //new UDPListener(this, this.user.getInetAddress());
         new Server(this);
 
         this.userList= new ArrayList<>();
@@ -42,7 +43,6 @@ public class ManagerNetwork{
         while (i<this.userList.size() && !stop){
             destUser = this.userList.get(i);
             if (destUser.getLogin().equals(userName)){
-                System.out.println("found");
                 stop=true;
             }
             i++;

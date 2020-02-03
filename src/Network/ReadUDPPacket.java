@@ -31,7 +31,6 @@ public class ReadUDPPacket extends Thread{
                 e.printStackTrace();
             }
             this.manager.addUser(newUser,2);
-            System.out.println("User already on network " + pseudoUser);
         }
         else if (data.startsWith("New login :")){
             String pseudoUser = data.replaceFirst("New login : ", "");

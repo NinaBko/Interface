@@ -17,7 +17,6 @@ public class UDPListener extends Thread{
 
     public void run() {
         System.out.println("UDP Listener launched");
-        while(true){
             DatagramSocket dgramSocket = null;
             try{
                 dgramSocket = new DatagramSocket(3700);
@@ -25,7 +24,8 @@ public class UDPListener extends Thread{
             catch(SocketException e){
                 System.out.println("Error create DatagramSocket");
             }
-
+        boolean stop=false;
+        while(!stop){
             byte[] buffer = new byte[256];
             DatagramPacket inPacket = new DatagramPacket(buffer, buffer.length);
             try{
@@ -37,8 +37,8 @@ public class UDPListener extends Thread{
             }catch(IOException e){
                 System.out.println("Error IO udplist");
             }
-            dgramSocket.close();
         }
+        dgramSocket.close();
     }
 
 }

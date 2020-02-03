@@ -67,7 +67,6 @@ public class Controller{
     public void setUserId(String id){this.user.setId(id);}
 
     public void send(String userName, String msg){
-        System.out.println("test : "+userName);
         this.manager.sendMessage(userName, msg);
     }
 
@@ -117,7 +116,6 @@ public class Controller{
    }
 
    public void addUser(String login){
-        System.out.println(login);
         this.mainWindow.addUser(login);
    }
 
