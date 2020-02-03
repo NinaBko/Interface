@@ -17,12 +17,13 @@ public class Controller{
     private BDD BDDcon;
     private Welcome mainWindow;
 
-    public Controller(String addr){
+    public Controller(){
 
-        this.addrBroadcast=addr;
         this.user=new User(null, findUserAddr());
-
+        System.out.println("Starting Database connection");
         this.BDDcon=new BDD();
+        System.out.println("Database connection established");
+        
         new Connect(this);
 
 
@@ -46,8 +47,12 @@ public class Controller{
             Iterator<InterfaceAddress> iteAddr = listAddr.iterator();
             while ((result==null) && iteAddr.hasNext()){
                 InterfaceAddress currentAddr = iteAddr.next();
-                if (currentAddr.getNetworkPrefixLength()==16){
+                if (currentAddr.getBroadcast()!=null){
                     result = currentAddr.getAddress();
+
+                    this.addrBroadcast=currentAddr.getBroadcast().toString().replaceFirst("/","");
+                    System.out.println("Broadcast address : "+this.addrBroadcast);
+                    System.out.println("User address : "+result);
                 }
             }
         }

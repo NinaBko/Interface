@@ -8,12 +8,7 @@ import java.util.Scanner;
 public class Chat{
     public static void main(String[] args){
 
-        Scanner sc =new Scanner(System.in);
-        System.out.println("Entre your broadcast address");
-        String addr= sc.nextLine();
-        sc.close();
-
-
-        new Controller(addr);
+        System.out.println("Starting Application...");
+        new Controller();
     }
 }
