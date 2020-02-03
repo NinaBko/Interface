@@ -15,6 +15,7 @@ public class Server extends Thread {
     }
 
     public void run() {
+        System.out.println("TCP Server launched. Wait for connection");
         ServerSocket servSocket=null;
         try{
             servSocket= new ServerSocket(3600);

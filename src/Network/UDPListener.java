@@ -16,6 +16,7 @@ public class UDPListener extends Thread{
     }
 
     public void run() {
+        System.out.println("UDP Listener launched");
         while(true){
             DatagramSocket dgramSocket = null;
             try{
@@ -30,7 +31,6 @@ public class UDPListener extends Thread{
             try{
                 dgramSocket.receive(inPacket);            
                 UDPPacket packet = new UDPPacket(inPacket);
-                System.out.println(packet.getInetAddress()+" -- "+ this.ourAddr);
                 if (!packet.getInetAddress().equals(this.ourAddr)) {
                     new ReadUDPPacket(packet, this.manager);
                 }

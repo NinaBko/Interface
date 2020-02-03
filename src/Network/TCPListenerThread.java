@@ -21,8 +21,8 @@ public class TCPListenerThread extends Thread{
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(link.getInputStream()));
             input = in.readLine();
-            System.out.println("Received : "+input);
             InetAddress destAddr = this.link.getInetAddress();
+            System.out.println("[TCP reception] Received \""+input+"\" from "+destAddr);
             this.manager.messageReceived(destAddr,input);
             this.link.close();
         }

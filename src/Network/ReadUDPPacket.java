@@ -16,8 +16,7 @@ public class ReadUDPPacket extends Thread{
 
     public void run(){
         String data = this.packet.getData();
-        System.out.println("Packet received");
-        System.out.println("- "+data);
+        System.out.println("[UDP reception] Received \""+this.packet.getData()+"\" from "+this.packet.getInetAddress());
         if (data.startsWith("New User : ")){
             String pseudoUser = data.replaceFirst("New User : ", "");
             User newUser = new User(pseudoUser, packet.getInetAddress());

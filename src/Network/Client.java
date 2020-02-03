@@ -20,6 +20,7 @@ public class Client extends Thread{
     }
 
     public void run() {
+    	System.out.println("[TCP send] Sending \""+this.msg+"\" to "+this.destAddr);
 		Socket link=null;
 		
 		try{

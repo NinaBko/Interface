@@ -41,7 +41,6 @@ public class ManagerNetwork{
         int i=0;
         while (i<this.userList.size() && !stop){
             destUser = this.userList.get(i);
-            System.out.println(destUser.getLogin());
             if (destUser.getLogin().equals(userName)){
                 System.out.println("found");
                 stop=true;
@@ -50,7 +49,6 @@ public class ManagerNetwork{
         }
         if (!stop){System.out.println("User Not found in sendMessage");}
         else{
-            System.out.println(destUser.getLogin());
             new Client(destUser, 3600, msg);
         }
     }
@@ -58,9 +56,7 @@ public class ManagerNetwork{
     public void messageReceived(InetAddress destAddr,String msg){
         boolean found=false;
         User destUser =null;
-        System.out.println(destAddr);
         for (User u : this.userList){
-            System.out.println("- "+u.getInetAddress());
             if (u.getInetAddress().equals(destAddr)){
                 found=true;
                 destUser=u;

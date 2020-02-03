@@ -21,7 +21,7 @@ public class UDPSender{
     }
 
     public void sendFirstMessage(String login) {
-        System.out.println("SEND First message");
+        System.out.println("[Broadcast UDP] First message");
         String msg = "New User : "+login;
 
         
@@ -33,7 +33,6 @@ public class UDPSender{
             System.out.println("Error create diagram socket sender");
         }
         try{
-            System.out.println(this.addr);
             outPacket = new DatagramPacket(msg.getBytes(), msg.length(),InetAddress.getByName(this.addr),3700);
         }catch(UnknownHostException e){
             System.out.println("Error create dgram packet");
@@ -50,13 +49,12 @@ public class UDPSender{
 
 
     public void sendReply(String login, InetAddress address) {
-        System.out.println("test reply :"+address);
+        System.out.println("[Reply UDP] To "+address);
         String msg = "User on network : "+login;
         byte[] sendData = new byte[256];
 
         DatagramPacket outPacket = null;
 
-        System.out.println("-- "+msg);
         sendData=msg.getBytes();
         outPacket = new DatagramPacket(sendData, sendData.length,address,3700);
         try{
@@ -65,17 +63,15 @@ public class UDPSender{
         catch(IOException e){
             System.out.println("Error send dgram packet");
         }
-        System.out.println("test3");
     }
 
 
     public void sendWrongLogin(InetAddress address) {
-        System.out.println("test wrongL :"+address);
+        System.out.println("[UDP] User at "+address+" has a login already taken");
         String msg = "Login already taken";
 
         DatagramPacket outPacket = null;
 
-        System.out.println("-- "+msg);
         outPacket = new DatagramPacket(msg.getBytes(), msg.length(),address,3700);
         try{
             this.datagramSocket.send(outPacket);
@@ -83,17 +79,16 @@ public class UDPSender{
         catch(IOException e){
             System.out.println("Error send dgram packet");
         }
-        System.out.println("test3");
     }
 
     public void sendLoginChanged(String login){
+        System.out.println("[Broadcast UDP] My new login : "+login);
         String msg = "New login : "+login;
 
         DatagramPacket outPacket = null;
 
-        System.out.println("-- "+msg);
         try {
-            outPacket = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName("10.1.255.255"), 3700);
+            outPacket = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName(this.addr), 3700);
         }
         catch(UnknownHostException e){
             System.out.println("Error outpacket send LoginChanged");
@@ -108,13 +103,13 @@ public class UDPSender{
     }
 
     public void sendDisconnection(){
+        System.out.println("[Broadcast UDP] Leaving network");
         String msg = "User disconnected";
 
         DatagramPacket outPacket = null;
 
-        System.out.println("-- "+msg);
         try {
-            outPacket = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName("10.1.255.255"), 3700);
+            outPacket = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName(this.addr), 3700);
         }
         catch(UnknownHostException e){
             System.out.println("Error outpacket send LoginChanged");
