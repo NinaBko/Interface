@@ -20,7 +20,7 @@ public class Controller{
     public Controller(String addr){
 
         this.addrBroadcast=addr;
-        this.user=new User(null, null);
+        this.user=new User(null, findUserAddr());
 
         this.BDDcon=new BDD();
         new Connect(this);
