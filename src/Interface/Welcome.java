@@ -41,7 +41,6 @@ public class Welcome{
                 if(e.getClickCount()==2){
                     int index = userList.locationToIndex(e.getPoint());
                     String user = listModel.get(index);
-                    System.out.println("Clicked on "+user);
                     newSession(controller,user);
                 }
             }

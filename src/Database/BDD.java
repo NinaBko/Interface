@@ -23,19 +23,6 @@ public class BDD {
     }
 
 
-    public void printTableUser(){
-        try {
-            Statement stmt = this.con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from user");
-            while (rs.next())
-                System.out.println(rs.getString(1));
-            rs.close();
-            stmt.close();
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-
     public void closeDatabase(){
         try{
             this.con.close();
@@ -70,7 +57,7 @@ public class BDD {
             Statement stmt = this.con.createStatement();
             int t = stmt.executeUpdate("update user set login='" + login + "' where id='" + id + "'");
             stmt.close();
-            System.out.println(t + " row changed");
+            System.out.println("[BDD] "+t + " row changed in table user");
         }
         catch (Exception e){
             System.out.println(e);
@@ -82,7 +69,7 @@ public class BDD {
             Statement stmt = this.con.createStatement();
             int t = stmt.executeUpdate("update user set login=NULL where id='" + id + "'");
             stmt.close();
-            System.out.println(t + " row changed");
+            System.out.println("[BDD] "+t + " row changed in table user");
         }
         catch (Exception e){
             System.out.println(e);
@@ -131,7 +118,7 @@ public class BDD {
             rs.next();
             id=rs.getInt(1);
             rs.close();
-            System.out.println("test");
+            System.out.println("[BDD] Add message : "+message+" in table message");
             stmt.executeUpdate("INSERT INTO message (id,sender,receiver,date,data)" +
                     "               VALUES ('"+id+"','"+sender+"','"+receiver+"','"+DateSql+"','"+message+"')");
             stmt.close();
@@ -153,10 +140,8 @@ public class BDD {
                 java.sql.Date dbSqlDate = rs.getDate(4);
                 LocalTime time = dbSqlTime.toLocalTime();
                 LocalDate date = dbSqlDate.toLocalDate();
-                System.out.println("Found : "+sender+" "+receiver+" "+date+" "+time+" "+ " "+message);
                 MessageHistory newMessage = new MessageHistory(sender,receiver,date,time,message);
                 history.add(newMessage);
-                System.out.println(history.size());
             }
         }
         catch(Exception e) {
