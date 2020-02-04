@@ -17,10 +17,8 @@ public class ManagerNetwork{
 
         this.udpSend = new UDPSender(this.user.getLogin(),this.control.getAddrBroadcast());
         new UDPListener(this, this.user.getInetAddress());
-        //new UDPListener(this, this.user.getInetAddress());
         new Server(this);
         this.tcpsend = new Client();
-
         this.userList= new ArrayList<>();
     }
 
