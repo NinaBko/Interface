@@ -34,6 +34,17 @@ public class Welcome{
                     actionOnChange(controller);
         }
         });
+        loginField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                String newLogin = loginField.getText();
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    if (!newLogin.equals("")){
+                        actionOnChange(controller);
+                    }
+                }
+            }
+        });
 
         this.userList.addMouseListener((new MouseAdapter() {
             @Override
