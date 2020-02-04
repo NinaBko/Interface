@@ -83,11 +83,12 @@ public class Controller{
     }
 
     public void changeUserLogin(){
-        new ChangeLogin(this);
         this.mainWindow.visible(false);
+        new ChangeLogin(this);
     }
 
     public void sendChangeInitialLogin(){
+        this.mainWindow.visible(true);
         this.BDDcon.updateLogin(this.user.getId(),this.user.getLogin());
         this.mainWindow.changeLogin(this.user.getLogin());
         this.manager.sendUDPFirst();
