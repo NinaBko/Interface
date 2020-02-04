@@ -6,6 +6,7 @@ import java.util.*;
 public class ManagerNetwork{
 
     private UDPSender udpSend;
+    private Client tcpsend;
     private User user;
     private List<User> userList;
     private Controller control;
@@ -18,6 +19,7 @@ public class ManagerNetwork{
         new UDPListener(this, this.user.getInetAddress());
         //new UDPListener(this, this.user.getInetAddress());
         new Server(this);
+        this.tcpsend = new Client();
 
         this.userList= new ArrayList<>();
     }
@@ -49,7 +51,7 @@ public class ManagerNetwork{
         }
         if (!stop){System.out.println("User Not found in sendMessage");}
         else{
-            new Client(destUser, 3600, msg);
+            this.tcpsend.send(destUser, msg);
         }
     }
 
