@@ -16,7 +16,7 @@ public class ChatSession {
     private JTextArea textArea1;
     private JPanel panel1;
     private JLabel titleLabel;
-    private JFrame frame=new JFrame("ChangeLogin");
+    private JFrame frame=new JFrame("Chat Session");
 
     private String distUser;
 

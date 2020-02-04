@@ -84,6 +84,7 @@ public class Controller{
 
     public void changeUserLogin(){
         new ChangeLogin(this);
+        this.mainWindow.visible(false);
     }
 
     public void sendChangeInitialLogin(){
